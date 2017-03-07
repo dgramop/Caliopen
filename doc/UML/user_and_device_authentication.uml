@@ -3,7 +3,11 @@
 title A known device login on a Caliopen instance
 
 == Authentication ==
-Device -> API: POST /authentications (username, password, device_id, sign(device_id))
+User -> Device: give username and password
+Device -> Device: private_key = AES.decrypt(crypted_key, password)
+Device -> Device: sign_auth = private_key.sign(password)
+
+Device -> API: POST /authentications (username, password, sign_auth)
 API -> Backend: check_credentials
 Backend -> API: access token
 API -> Backend: check_device_signature(device_id, sign(device_id))
@@ -11,9 +15,9 @@ Backend -> API: ok
 API -> Device: 200
 
 == Call API ==
-Device -> Device: sign(access token)
+Device -> Device: sign_call = sign(access_token)
 Device -> API: GET /discussions with headers Access-Token, X-Device-ID X-Device-Signature
-API -> Backend: check token and device signature (token, device_id, device signature)
+API -> Backend: check token and device signature (access_token, device_id, sign_call)
 Backend -> API: ok
 API -> Device: 200 [discussions]
 
