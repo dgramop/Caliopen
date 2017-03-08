@@ -16,7 +16,7 @@ API -> Backend: create_device('default', ecdsa public key)
 Backend-> API: device_id
 API -> Device: 200 {user_id, device_id}
 
-Device -> Device: store device_id = crypted_key
+Device -> Device: store device_id, crypted_key
 Device -> User: first page
 
 @enduml
