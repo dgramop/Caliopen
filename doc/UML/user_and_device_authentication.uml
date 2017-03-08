@@ -26,7 +26,7 @@ end
 
 
 == Call API ==
-Device -> API: GET /v1/discussions with headers Access-Token, X-Device-ID X-Device-Signature
+Device -> API: GET /v1/discussions with headers Authorization, X-Device-ID X-Device-Signature
 API -> Backend: check token and device signature (access_token, device_id, device_signature)
 Backend -> API: ok
 API -> Device: 200 [discussions]
